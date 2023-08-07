@@ -5,7 +5,7 @@ using System.Net;
 namespace IntegraBancoAPI.Controllers
 {
     [ApiController]
-    [Route("api/[Controller]")]
+    [Route("api/v1/[Controller]")]
     public class EnderecoController : ControllerBase
     {
         private readonly IEnderecoService _enderecoService;

@@ -1,6 +1,8 @@
-﻿namespace IntegraBancoAPI.Services
+﻿using IntegraBancoAPI.Inteface;
+
+namespace IntegraBancoAPI.Services
 {
-    public class BancoService
+    public class BancoService : IBancoServices
     {
     }
 }

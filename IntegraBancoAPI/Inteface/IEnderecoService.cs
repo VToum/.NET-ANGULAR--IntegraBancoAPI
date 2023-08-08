@@ -7,6 +7,6 @@ namespace IntegraBancoAPI.Inteface
 {
     public interface IEnderecoService
     {
-        Task<ResponseDto<EnderecoDto>> BuscarEndereco(string cep);
+        Task<ResponseService<EnderecoDto>> BuscarEndereco(string cep);
     }
 }

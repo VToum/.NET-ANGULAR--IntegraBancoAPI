@@ -1,20 +1,20 @@
-﻿using IntegraBancoAPI.Dtos;
+﻿using System.Dynamic;
+using System.Runtime.ConstrainedExecution;
+using System.Text.Json;
+using IntegraBancoAPI.Dtos;
 using IntegraBancoAPI.Inteface;
 using IntegraBancoAPI.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
-using System.Dynamic;
-using System.Runtime.ConstrainedExecution;
-using System.Text.Json;
 
 namespace IntegraBancoAPI.Rest
 {
     public class BancoApiRest : IBancoApi
     {
-        public async Task<ResponseDto<List<BancoModel>>> BuscarTodosBancos()
+        public async Task<ResponseService<List<BancoModel>>> BuscaTodosBancos()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cep/v1/");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/banks/v1");
 
-            var response = new ResponseDto<List<BancoModel>>();
+            var response = new ResponseService<List<BancoModel>>();
             using (var client = new HttpClient())
             {
                 var responseBancoApi = await client.SendAsync(request);
@@ -36,21 +36,17 @@ namespace IntegraBancoAPI.Rest
             return response;
 
         }
-        public Task<ResponseDto<BancoModel>> BuscarBancoId(string codigoBanco)
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task<ResponseDto<EnderecoModel>> BuscarEnderecoPorCep(string cep)
+        public async Task<ResponseService<BancoModel>> BuscaBanco(string codigoBanco)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cep/v1/{cep}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/banks/v1/{codigoBanco}");
 
-            var response = new ResponseDto<EnderecoModel>();
+            var response = new ResponseService<BancoModel>();
             using (var client = new HttpClient())
             {
                 var responseBancoApi = await client.SendAsync(request);
                 var contentResp = await responseBancoApi.Content.ReadAsStringAsync();
-                var objReponse = JsonSerializer.Deserialize<EnderecoModel>(contentResp);
+                var objReponse = JsonSerializer.Deserialize<BancoModel>(contentResp);
 
                 if (responseBancoApi.IsSuccessStatusCode)
                 {
@@ -62,9 +58,32 @@ namespace IntegraBancoAPI.Rest
                     response.CodigoHttp = responseBancoApi.StatusCode;
                     response.ErroRetorno = JsonSerializer.Deserialize<ExpandoObject>(contentResp);
                 }
-                return response;
-                
+
             }
+            return response;
+        }
+
+        public async Task<ResponseService<EnderecoModel>> BuscarEnderecoPorCep(string cep)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cep/v1/{cep}");
+
+            var response = new ResponseService<EnderecoModel>();
+            var client = new HttpClient();
+            var responseBancoApi = await client.SendAsync(request);
+            var contentResp = await responseBancoApi.Content.ReadAsStringAsync();
+            var objReponse = JsonSerializer.Deserialize<EnderecoModel>(contentResp);
+
+            if (responseBancoApi.IsSuccessStatusCode)
+            {
+                response.CodigoHttp = responseBancoApi.StatusCode;
+                response.DadosRetorno = objReponse;
+            }
+            else
+            {
+                response.CodigoHttp = responseBancoApi.StatusCode;
+                response.ErroRetorno = JsonSerializer.Deserialize<ExpandoObject>(contentResp);
+            }
+            return response;
 
         }
 

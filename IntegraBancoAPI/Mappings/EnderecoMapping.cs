@@ -6,12 +6,14 @@ namespace IntegraBancoAPI.Mappings
 {
     public class EnderecoMapping : Profile
     {
-        //metodo padrão do AutoMapper
+        //Metodo padrão do AutoMapper Endereco
         public EnderecoMapping()
         {
-            CreateMap(typeof(ResponseDto<>), typeof(ResponseDto<>));
+            CreateMap(typeof(ResponseService<>), typeof(ResponseService<>));
+
             CreateMap<EnderecoDto, EnderecoModel>();
             CreateMap<EnderecoModel, EnderecoDto>();
+
         }
     }
 }

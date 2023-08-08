@@ -5,15 +5,15 @@ namespace IntegraBancoAPI.Models
     public class BancoModel
     {
         [JsonPropertyName("ispb")]
-        public string? Ispb { get; set; }
+        public string? ispb { get; set; }
 
         [JsonPropertyName("name")]
-        public string? Name { get; set; }
+        public string? Nome { get; set; }
 
         [JsonPropertyName("code")]
-        public int Code { get; set; }
+        public int? Codigo { get; set; }
 
         [JsonPropertyName("fullName")]
-        public string? FullName { get; set; }
+        public string? NomeCompleto { get; set; }
     }
 }

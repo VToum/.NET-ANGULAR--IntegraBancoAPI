@@ -9,7 +9,6 @@ namespace IntegraBancoAPI.Controllers
     public class EnderecoController : ControllerBase
     {
         private readonly IEnderecoService _enderecoService;
-
         public EnderecoController(IEnderecoService enderecoService)
         {
             _enderecoService = enderecoService;

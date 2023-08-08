@@ -5,8 +5,8 @@ namespace IntegraBancoAPI.Inteface
 {
     public interface IBancoApi
     {
-        Task<ResponseDto<BancoModel>> BuscarTodosBancos();
-        Task<ResponseDto<EnderecoModel>> BuscarEnderecoPorCep(string cep);
-        Task<ResponseDto<BancoModel>> BuscarBancoId(string codigoBanco);
+        Task<ResponseService<List<BancoModel>>> BuscaTodosBancos();
+        Task<ResponseService<EnderecoModel>> BuscarEnderecoPorCep(string cep);
+        Task<ResponseService<BancoModel>> BuscaBanco(string codigoBanco);
     }
 }

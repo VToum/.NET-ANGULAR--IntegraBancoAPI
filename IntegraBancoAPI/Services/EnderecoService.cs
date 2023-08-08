@@ -14,10 +14,10 @@ namespace IntegraBancoAPI.Services
             _bancoApi = bancoapi;
             _mapper = mapper;
         }
-        public async Task<ResponseDto<EnderecoDto>> BuscarEndereco(string cep)
+        public async Task<ResponseService<EnderecoDto>> BuscarEndereco(string cep)
         {
             var endereco = await _bancoApi.BuscarEnderecoPorCep(cep);
-            return _mapper.Map<ResponseDto<EnderecoDto>>(endereco);
+            return _mapper.Map<ResponseService<EnderecoDto>>(endereco);
         }
     }
 }

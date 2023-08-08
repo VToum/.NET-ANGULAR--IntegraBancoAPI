@@ -16,9 +16,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IEnderecoService, EnderecoService>();
 builder.Services.AddSingleton<IBancoApi, BancoApiRest>();
-//builder.Services.AddSingleton<IBancoServices, BancoModel>();
+builder.Services.AddSingleton<IBancoServices, BancoService>();
 
 builder.Services.AddAutoMapper(typeof(EnderecoMapping));
+builder.Services.AddAutoMapper(typeof(BancoMapping));
 
 var app = builder.Build();
 

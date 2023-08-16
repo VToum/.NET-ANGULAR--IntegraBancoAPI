@@ -1,0 +1,12 @@
+.container{
+  position: relative;
+  text-align: center;
+  width: 50rem;
+  margin-top: 200px;
+  justify-content: center;
+}
+
+.cadastro{
+  position: relative;
+  margin-top: 50px;
+}

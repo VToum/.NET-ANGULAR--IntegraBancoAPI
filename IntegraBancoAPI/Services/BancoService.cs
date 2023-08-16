@@ -14,13 +14,13 @@ namespace IntegraBancoAPI.Services
             _mapper = mapper;
             _bancoApi = bancoApi;
         }
-        public async Task<ResponseService<List<BancoDto>>> BuscaTodos()
+        public async Task<ResponseService<List<BancoDto>>> BuscaAllBancos()
         {
             var bancos = await _bancoApi.BuscaTodosBancos();
             return _mapper.Map<ResponseService<List<BancoDto>>>(bancos);
         }
 
-        public async Task<ResponseService<BancoDto>> BuscaBanco(string codigoBanco)
+        public async Task<ResponseService<BancoDto>> BuscaCodigoBanco(string codigoBanco)
         {
             var banco = await _bancoApi.BuscaBanco(codigoBanco);
             return _mapper.Map<ResponseService<BancoDto>>(banco);

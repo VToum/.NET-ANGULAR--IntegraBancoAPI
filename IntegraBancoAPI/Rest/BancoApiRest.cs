@@ -63,6 +63,33 @@ namespace IntegraBancoAPI.Rest
             return response;
         }
 
+        public async Task<ResponseService<List<CorretoraModel>>> BuscaTodasCorretoras()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cvm/corretoras/v1");
+
+            var response = new ResponseService<List<CorretoraModel>>();
+            using (var client = new HttpClient())
+            {
+                var responseBancoApi = await client.SendAsync(request);
+                var contentResp = await responseBancoApi.Content.ReadAsStringAsync();
+                var objReponse = JsonSerializer.Deserialize<List<CorretoraModel>>(contentResp);
+
+                if (responseBancoApi.IsSuccessStatusCode)
+                {
+                    response.CodigoHttp = responseBancoApi.StatusCode;
+                    response.DadosRetorno = objReponse;
+                }
+                else
+                {
+                    response.CodigoHttp = responseBancoApi.StatusCode;
+                    response.ErroRetorno = JsonSerializer.Deserialize<ExpandoObject>(contentResp);
+                }
+
+            }
+            return response;
+
+        }
+
         public async Task<ResponseService<EnderecoModel>> BuscarEnderecoPorCep(string cep)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cep/v1/{cep}");
@@ -87,5 +114,31 @@ namespace IntegraBancoAPI.Rest
 
         }
 
+        public async Task<ResponseService<CorretoraModel>> BuscaCorretora(string cnpj)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://brasilapi.com.br/api/cvm/corretoras/v1/{cnpj}");
+
+            var response = new ResponseService<CorretoraModel>();
+            using (var client = new HttpClient())
+            {
+                var responseBancoApi = await client.SendAsync(request);
+                var contentResp = await responseBancoApi.Content.ReadAsStringAsync();
+                var objReponse = JsonSerializer.Deserialize<CorretoraModel>(contentResp);
+
+                if (responseBancoApi.IsSuccessStatusCode)
+                {
+                    response.CodigoHttp = responseBancoApi.StatusCode;
+                    response.DadosRetorno = objReponse;
+                }
+                else
+                {
+                    response.CodigoHttp = responseBancoApi.StatusCode;
+                    response.ErroRetorno = JsonSerializer.Deserialize<ExpandoObject>(contentResp);
+                }
+
+            }
+            return response;
+
+        }
     }
 }

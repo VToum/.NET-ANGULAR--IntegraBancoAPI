@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IntegraBancoAPI.Controllers
 {
     [ApiController]
-    [Route("api/V1/[Controller]")]
+    [Route("api/[Controller]")]
     public class BancoController : ControllerBase
     {
         private readonly IBancoServices _bancoService;
@@ -21,9 +21,9 @@ namespace IntegraBancoAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> BuscaTodos()
+        public async Task<ActionResult> GetAllBanco()
         {
-            var response = await _bancoService.BuscaTodos();
+            var response = await _bancoService.BuscaAllBancos();
             
             if(response.CodigoHttp == HttpStatusCode.OK)
             {
@@ -40,9 +40,9 @@ namespace IntegraBancoAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> BuscaBanco(string codigoBanco)
+        public async Task<ActionResult> GetBanco(string codigoBanco)
         {
-            var response = await _bancoService.BuscaBanco(codigoBanco);
+            var response = await _bancoService.BuscaCodigoBanco(codigoBanco);
 
             if(response.CodigoHttp == HttpStatusCode.OK)
             {
